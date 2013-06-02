@@ -59,7 +59,6 @@
 
                     .subtitle { text-align: center; }
                 </style>
-                <link rel="stylesheet" type="text/css" href="inline-styles.css" />
             </head>
             <body>
                 <xsl:for-each select="fb:description/fb:title-info/fb:annotation">
@@ -399,10 +398,12 @@
                 <xsl:attribute name="border">1</xsl:attribute>
                 <xsl:choose>
                     <xsl:when test="starts-with(@xlink:href,'#')">
-                        <xsl:attribute name="src"><xsl:value-of select="substring-after(@xlink:href,'#')"/></xsl:attribute>
+                        <xsl:variable name="binary_id" select="substring-after(@xlink:href,'#')"/>
+                        <xsl:attribute name="src">data:<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]/@content-type"/>;base64,<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]"/></xsl:attribute>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:attribute name="src"><xsl:value-of select="@xlink:href"/></xsl:attribute>
+                        <xsl:variable name="binary_id" select="@xlink:href"/>
+                        <xsl:attribute name="src">data:<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]/@content-type"/>;base64,<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]"/></xsl:attribute>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:if test="@title">
@@ -415,10 +416,12 @@
             <xsl:element name="img">
                 <xsl:choose>
                     <xsl:when test="starts-with(@xlink:href,'#')">
-                        <xsl:attribute name="src"><xsl:value-of select="substring-after(@xlink:href,'#')"/></xsl:attribute>
+                        <xsl:variable name="binary_id" select="substring-after(@xlink:href,'#')"/>
+                        <xsl:attribute name="src">data:<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]/@content-type"/>;base64,<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]"/></xsl:attribute>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:attribute name="src"><xsl:value-of select="@xlink:href"/></xsl:attribute>
+                        <xsl:variable name="binary_id" select="@xlink:href"/>
+                        <xsl:attribute name="src">data:<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]/@content-type"/>;base64,<xsl:value-of select="/fb:FictionBook/fb:binary[@id=$binary_id]"/></xsl:attribute>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:if test="@title">
